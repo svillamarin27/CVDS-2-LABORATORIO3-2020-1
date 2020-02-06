@@ -4,12 +4,17 @@ import java.util.*;
 public class Registry {
 	private ArrayList<Person> agenda = new ArrayList<Person>();
 	
-    public RegisterResult RegisterResult(Person p) {
+    public RegisterResult registerVoter(Person p) {
 
         // TODO Validate person and return real result.
     	
     	RegisterResult s=null;
-    	
+    	for(Person k: agenda){
+			if(p.getId() == k.getId()){
+				return RegisterResult.DUPLICATED;
+			}
+			
+		} 
     	if(p.getAge()>=18 && p.isAlive()) {
         	 s=RegisterResult.VALID;
         	 agenda.add(p);
@@ -21,12 +26,7 @@ public class Registry {
         }else if(!p.isAlive()) {
         	s=RegisterResult.DEAD;
         }
-    	for(Person k: agenda){
-			if(p.getId() == k.getId()){
-				return RegisterResult.DUPLICATED;
-			}
-			
-		}
+    	
 		return s;
     }
   
